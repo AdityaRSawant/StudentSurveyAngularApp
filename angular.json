@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "swe645-assignment3"
+    }
+  },
+  "defaultProject": "swe645-assignment3",
+  "cli": {
+    "analytics": false
+  }
 }
