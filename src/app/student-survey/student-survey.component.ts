@@ -64,25 +64,48 @@ export class StudentSurveyComponent implements OnInit {
       liked = liked.substring(0, liked.length - 1);
     
       //Generate data object that needs to be passed to the POST service call
+      // var dataObj = {
+      //   studentid:submittedForm.form.value.studentid,
+      //   fname:submittedForm.form.value.fname,
+      //   lname:submittedForm.form.value.lname,
+      //   staddr:submittedForm.form.value.staddr,
+      //   zipcode:submittedForm.form.value.zipcode,
+      //   city:submittedForm.form.value.city,
+      //   state:submittedForm.form.value.state,
+      //   contact:submittedForm.form.value.contact,
+      //   email:submittedForm.form.value.email,
+      //   surveydate:submittedForm.form.value.surveydate,
+      //   liked:liked,
+      //   source:submittedForm.form.value.source,
+      //   recommend:submittedForm.form.value.recommend,
+      // }
+
       var dataObj = {
-        studentid:submittedForm.form.value.studentid,
-        fname:submittedForm.form.value.fname,
-        lname:submittedForm.form.value.lname,
-        staddr:submittedForm.form.value.staddr,
-        zipcode:submittedForm.form.value.zipcode,
-        city:submittedForm.form.value.city,
-        state:submittedForm.form.value.state,
-        contact:submittedForm.form.value.contact,
-        email:submittedForm.form.value.email,
-        surveydate:submittedForm.form.value.surveydate,
-        liked:liked,
-        source:submittedForm.form.value.source,
-        recommend:submittedForm.form.value.recommend,
+        comments: submittedForm.form.value.comments,
+        contactInfo: {
+          address: submittedForm.form.value.staddr,
+          city: submittedForm.form.value.staddr,
+          email: submittedForm.form.value.email,
+          firstName: submittedForm.form.value.fname,
+          lastName: submittedForm.form.value.lname,
+          id: "0",
+          phone: submittedForm.form.value.contact,
+          state: submittedForm.form.value.state,
+          zip: submittedForm.form.value.zipcode,
+        },
+        date: submittedForm.form.value.surveydate,
+        doRecommend: submittedForm.form.value.recommend,
+        interestsInCampus: submittedForm.form.value.source,
+        likedAboutCampus: liked,
+        raffle: "42",
+        id: submittedForm.form.value.studentid
       }
 
       console.log(dataObj);
 
       this.router.navigate(['/allsurvey']);
+
+
   }
 
   /**
