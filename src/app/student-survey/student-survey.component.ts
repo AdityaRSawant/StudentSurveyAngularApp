@@ -64,21 +64,6 @@ export class StudentSurveyComponent implements OnInit {
       liked = liked.substring(0, liked.length - 1);
     
       //Generate data object that needs to be passed to the POST service call
-      // var dataObj = {
-      //   studentid:submittedForm.form.value.studentid,
-      //   fname:submittedForm.form.value.fname,
-      //   lname:submittedForm.form.value.lname,
-      //   staddr:submittedForm.form.value.staddr,
-      //   zipcode:submittedForm.form.value.zipcode,
-      //   city:submittedForm.form.value.city,
-      //   state:submittedForm.form.value.state,
-      //   contact:submittedForm.form.value.contact,
-      //   email:submittedForm.form.value.email,
-      //   surveydate:submittedForm.form.value.surveydate,
-      //   liked:liked,
-      //   source:submittedForm.form.value.source,
-      //   recommend:submittedForm.form.value.recommend,
-      // }
 
       var dataObj = {
         comments: submittedForm.form.value.comments,
