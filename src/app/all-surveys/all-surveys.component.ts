@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { StudentSurveyService } from '../student-survey.service';
 @Component({
   selector: 'app-all-surveys',
   templateUrl: './all-surveys.component.html',
@@ -7,27 +8,32 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AllSurveysComponent implements OnInit {
 
-  gnumArr = ["G01177792", "G01212121"];
+  gnumArr = [];
   studentSurveyData = null;
   liked = "";
 
-  constructor(private http: HttpClientModule) { }
+  constructor(private http: HttpClientModule, private service: StudentSurveyService) { }
 
   ngOnInit(): void {
-    this.studentSurveyData.city = "Fairfax";
-    this.studentSurveyData.contact = "5714388908"
-    this.studentSurveyData.email = "addy.joga@gmail.com"
-    this.studentSurveyData.fname = "Aditya"
-    this.studentSurveyData.liked = "Students,Dorm Rooms"
-    this.studentSurveyData.lname = "Raghunath"
-    this.studentSurveyData.recommend = "Likely"
-    this.studentSurveyData.source = "Television"
-    this.studentSurveyData.staddr = "Fairfax"
-    this.studentSurveyData.state = "VA"
-    this.studentSurveyData.studentid = "G01177792"
-    this.studentSurveyData.surveydate = "2020-10-06"
-    this.studentSurveyData.zipcode = "22031"
-    this.studentSurveyData.liked = "Dorm, Campus";
+    this.service.getAllStudentGnum().subscribe(
+      (response: any) => {
+      //Store the response in array
+      console.log(response)
+      if(Array.isArray(response) == false)
+      {
+        this.studentSurveyData = response;
+        this.gnumArr[0] = this.studentSurveyData.survey.contactInfo.id;
+      }
+      else{
+        this.studentSurveyData = response[0];
+        this.gnumArr[0] = this.studentSurveyData.survey.contactInfo.id;
+      }
+      },
+      (error: any) => {
+        console.log("Error");
+        console.log(error);
+      }
+    );
   }
 
   /**
@@ -36,30 +42,15 @@ export class AllSurveysComponent implements OnInit {
    * @param gnum is the gnumber value fetched from ngModel
    */
   getStudentSurveyData(event, gnum: String) {
-    // this.service.getStudentSurvey(gnum).subscribe(
-    //   (response: any) => {
-    //   this.studentSurveyData = response;
-    //   },
-    //   (error: any) => {
-    //     console.log("Error");
-    //     this.studentSurveyData = null;
-    //   }
-    // );
-
-    this.studentSurveyData.city = "Fairfax";
-    this.studentSurveyData.contact = "5714388908"
-    this.studentSurveyData.email = "addy.joga@gmail.com"
-    this.studentSurveyData.fname = "Aditya"
-    this.studentSurveyData.liked = "Students,Dorm Rooms"
-    this.studentSurveyData.lname = "Raghunath"
-    this.studentSurveyData.recommend = "Likely"
-    this.studentSurveyData.source = "Television"
-    this.studentSurveyData.staddr = "Fairfax"
-    this.studentSurveyData.state = "VA"
-    this.studentSurveyData.studentid = "G01177792"
-    this.studentSurveyData.surveydate = "2020-10-06"
-    this.studentSurveyData.zipcode = "22031"
-    this.studentSurveyData.liked = "Dorm, Campus";
+    this.service.getStudentSurvey(gnum).subscribe(
+      (response: any) => {
+      this.studentSurveyData = response;
+      },
+      (error: any) => {
+        console.log("Error");
+        this.studentSurveyData = null;
+      }
+    );
 
   }
 

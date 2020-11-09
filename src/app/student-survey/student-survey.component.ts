@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-// import { ProjectService } from '../../project.service';
+import { StudentSurveyService } from '../student-survey.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -27,7 +27,7 @@ export class StudentSurveyComponent implements OnInit {
   likedArr = ["Students", "Location", "Campus", "Atmosphere", "Dorm Rooms", "Sports"];
   selectedLikedArr = [];
 
-  constructor(private router: Router, private http: HttpClientModule) { }
+  constructor(private router: Router, private http: HttpClientModule, private service: StudentSurveyService) { }
 
   ngOnInit(): void {
   }
@@ -69,7 +69,7 @@ export class StudentSurveyComponent implements OnInit {
         comments: submittedForm.form.value.comments,
         contactInfo: {
           address: submittedForm.form.value.staddr,
-          city: submittedForm.form.value.staddr,
+          city: submittedForm.form.value.city,
           email: submittedForm.form.value.email,
           firstName: submittedForm.form.value.fname,
           lastName: submittedForm.form.value.lname,
@@ -83,14 +83,22 @@ export class StudentSurveyComponent implements OnInit {
         interestsInCampus: submittedForm.form.value.source,
         likedAboutCampus: liked,
         raffle: "42",
-        id: submittedForm.form.value.studentid
       }
 
       console.log(dataObj);
 
-      this.router.navigate(['/allsurvey']);
 
-
+      //Call the function which wall give POSt call to the REST webservice 
+      this.service.addStudentSurvey(dataObj).subscribe(
+        (response: any) => {
+          console.log("Successfully Inserted Survey");
+          this.router.navigate(['/allsurvey']);
+        },
+        (error: any) => {
+          console.log("Error while inserting");
+          console.log(error);
+        }
+      );
   }
 
   /**
