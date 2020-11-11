@@ -9,3 +9,7 @@ RUN npm run build --prod
 FROM nginx:1.17.1-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/dist/swe645-assignment3 /usr/share/nginx/html
+
+EXPOSE 8080
+EXPOSE 80
+EXPOSE 443
