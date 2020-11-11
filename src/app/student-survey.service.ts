@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,7 @@ export class StudentSurveyService {
     *  It will add Student survey data in the database with values fetched from the field
     *  @param data
     */
-   addStudentSurvey(data) : Observable<any>
+   addStudentSurvey(data)
    {
        const headersData = new HttpHeaders({
            "Content-Type": "application/json"
@@ -26,7 +27,7 @@ export class StudentSurveyService {
         });
    }
 
-   getAllStudentGnum() : Observable<any>
+   getAllStudentGnum()
    {
     const headersData = new HttpHeaders({
       "Content-Type": "application/json"
@@ -36,14 +37,22 @@ export class StudentSurveyService {
     });
    }
 
-   getStudentSurvey(id): Observable<any>
+   getStudentSurvey(id)
    {
     const headersData = new HttpHeaders({
       "Content-Type": "application/json"
     });
     return this.http.get(this.serviceUrl+"/"+id, {
         headers: headersData
-    });
+    }).pipe(map(
+      (response: any) => {
+          return response;  
+      },              
+    )).pipe(catchError (
+      (error: any) => {
+          return throwError(null);
+      }
+    ));
    }
 
 
