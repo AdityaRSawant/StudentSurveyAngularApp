@@ -1,12 +1,11 @@
-# Stage 1
-FROM node:10-alpine as build-step
-RUN mkdir -p /app
+### STAGE 1: Build ###
+FROM node:latest AS node
 WORKDIR /app
-COPY package.json /app
+COPY . .
 RUN npm install
-COPY . /app
 RUN npm run build --prod
- 
-# Stage 2
-FROM nginx:1.17.1-alpine
-COPY --from=build-step /app /usr/share/nginx/html
+
+### STAGE 2: Run ###
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=build /app/dist/swe645-assignment3 /usr/share/nginx/html
