@@ -13,3 +13,4 @@ COPY --from=nginx:latest /etc/nginx/nginx.conf /nginx.conf
 EXPOSE 8080
 EXPOSE 80
 EXPOSE 443
+EXPOSE 4200
