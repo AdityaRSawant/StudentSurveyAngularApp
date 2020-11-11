@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class StudentSurveyService {
 
-  serviceUrl = "http://localhost:8080/surveyBackEnd/surveys";
-
+  //serviceUrl = "http://localhost:8080/surveyBackEnd/surveys";
+  serviceUrl = "http://a2bb79d217d5d4e59b4ade6575f18bf7-509203104.us-east-2.elb.amazonaws.com:8080/surveyBackEnd/surveys";
   constructor(private http: HttpClient) { }
 
   /*
